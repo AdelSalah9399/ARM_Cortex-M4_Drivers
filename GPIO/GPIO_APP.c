@@ -14,7 +14,7 @@
 /************************************************includes*************************************************************************/
 #include "../../common/STD_TYPE.h"
 #include "../../common/Util.h"
-#include "../GPIO/GPIO_Driver.h"
+#include "../../MCAL/GPIO/GPIO_Driver.h"
 /************************************************Base_Address*********************************************************************/
 #define 		GPIOA_BASE_ADDRESS           (0x40020000)
 #define 		GPIOB_BASE_ADDRESS           (0x40020400)
@@ -25,7 +25,7 @@
 #define 		GPIO_PUPD_MASK          	 3
 #define 		GPIO_TYPE_MASK          	 1
 #define 		GPIO_VALUE_MASK          	 1
-
+#define 		GPIO_ALF_MASK          	 	 0xF
 /************************************************Base Addresses*******************************************************************/
 #define  	   	GPIOA      ((volatile GPIO_t*)GPIOA_BASE_ADDRESS)
 #define    		GPIOB      ((volatile GPIO_t*)GPIOB_BASE_ADDRESS)
@@ -66,7 +66,7 @@ typedef struct{
 
 ret_t GPIO_SetPinMode(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_MODE)
 {
-	if( (GPIO_PIN>=GPIO_PIN0) && (GPIO_PIN<=GPIO_PIN15) && (GPIO_MODE>=GPIO_MODE_INPUT) && (GPIO_MODE<=GPIO_MODE_OUTPUT) )
+	if( (GPIO_PIN>=GPIO_PIN0) && (GPIO_PIN<=GPIO_PIN15) && (GPIO_MODE>=GPIO_MODE_INPUT) && (GPIO_MODE<=GPIO_MODE_ANALOG) )
 	{
 		switch(GPIO_PORT)
 		{
@@ -195,6 +195,37 @@ ret_t GPIO_SetPullUpDownType(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_PUPD)
 			case GPIO_PORTA:temp= GPIOA->PUPDR; temp &= ~(GPIO_PUPD_MASK<<GPIO_PIN*2); temp |= (GPIO_PUPD<<GPIO_PIN*2); GPIOA->PUPDR =temp ; break;
 			case GPIO_PORTB:temp= GPIOB->PUPDR; temp &= ~(GPIO_PUPD_MASK<<GPIO_PIN*2); temp |= (GPIO_PUPD<<GPIO_PIN*2); GPIOB->PUPDR =temp ; break;
 			case GPIO_PORTC:temp= GPIOC->PUPDR; temp &= ~(GPIO_PUPD_MASK<<GPIO_PIN*2); temp |= (GPIO_PUPD<<GPIO_PIN*2); GPIOC->PUPDR =temp ; break;
+			default		   : return ret_Error;
+		}
+		return ret_OK;
+	}
+	else
+		return ret_Error;
+}
+
+
+ret_t GPIO_SetAlternativeFunction(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_AF)
+{
+	if( (GPIO_PIN>=GPIO_PIN0) && (GPIO_PIN<=GPIO_PIN7) && (GPIO_AF>=GPIO_AF0) && (GPIO_AF<=GPIO_AF15) )
+	{
+		u32 temp;
+		switch(GPIO_PORT)
+		{
+			case GPIO_PORTA:temp= GPIOA->AFRL; temp &= ~(GPIO_ALF_MASK<<GPIO_PIN*4); temp |= (GPIO_AF<<GPIO_PIN*4); GPIOA->AFRL =temp ; break;
+			case GPIO_PORTB:temp= GPIOB->AFRL; temp &= ~(GPIO_ALF_MASK<<GPIO_PIN*4); temp |= (GPIO_AF<<GPIO_PIN*4); GPIOB->AFRL =temp ; break;
+			case GPIO_PORTC:temp= GPIOC->AFRL; temp &= ~(GPIO_ALF_MASK<<GPIO_PIN*4); temp |= (GPIO_AF<<GPIO_PIN*4); GPIOC->AFRL =temp ; break;
+			default		   : return ret_Error;
+		}
+		return ret_OK;
+	}
+	else if( (GPIO_PIN>=GPIO_PIN8) && (GPIO_PIN<=GPIO_PIN15) && (GPIO_AF>=GPIO_AF0) && (GPIO_AF<=GPIO_AF15) )
+	{
+		u32 temp;
+		switch(GPIO_PORT)
+		{
+			case GPIO_PORTA:temp= GPIOA->AFRH; temp &= ~(GPIO_ALF_MASK<<(GPIO_PIN-8)*4); temp |= (GPIO_AF<<(GPIO_PIN-8)*4); GPIOA->AFRH =temp ; break;
+			case GPIO_PORTB:temp= GPIOB->AFRH; temp &= ~(GPIO_ALF_MASK<<(GPIO_PIN-8)*4); temp |= (GPIO_AF<<(GPIO_PIN-8)*4); GPIOB->AFRH =temp ; break;
+			case GPIO_PORTC:temp= GPIOC->AFRH; temp &= ~(GPIO_ALF_MASK<<(GPIO_PIN-8)*4); temp |= (GPIO_AF<<(GPIO_PIN-8)*4); GPIOC->AFRH =temp ; break;
 			default		   : return ret_Error;
 		}
 		return ret_OK;

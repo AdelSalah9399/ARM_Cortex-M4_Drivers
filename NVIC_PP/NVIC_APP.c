@@ -13,7 +13,7 @@
 
 /************************************************includes***************************************************************************/
 #include "../../common/STD_TYPE.h"
-#include "../NVIC_PP/NVIC_Driver.h"
+#include "../../MCAL/NVIC_PP/NVIC_Driver.h"
 /********************************************SW_Priority_BaseAddress****************************************************************/
 #define NVIC_SCB_AIRCR_BaseAddress					  0xE000ED0C
 /************************************************NVIC_Base_Address******************************************************************/
@@ -72,34 +72,34 @@ void DriverNVIC_GroupsPriorityConfig(void)
 }
 
 
-void DriverNVIC_EnableINT(u32 INT_ID)
+void DriverNVIC_EnableINT(u32 NVIC_ID)
 {
 	/*  		get_array_index		get required bit	*/
-	NVIC_ptr->ISER[INT_ID/32] = (1<< (INT_ID%32) );
+	NVIC_ptr->ISER[NVIC_ID/32] = (1<< (NVIC_ID%32) );
 }
 
-void DriverNVIC_DisableINT(u32 INT_ID)
+void DriverNVIC_DisableINT(u32 NVIC_ID)
 {
 	/*  		get_array_index		get required bit	*/
-	NVIC_ptr->ICER[INT_ID/32] = (1<< (INT_ID%32) );
+	NVIC_ptr->ICER[NVIC_ID/32] = (1<< (NVIC_ID%32) );
 }
 
-void DriverNVIC_SetPendingINT(u32 INT_ID)
+void DriverNVIC_SetPendingINT(u32 NVIC_ID)
 {
 	/*  		get_array_index		get required bit	*/
-	NVIC_ptr->ISPR[INT_ID/32] = (1<< (INT_ID%32) );
+	NVIC_ptr->ISPR[NVIC_ID/32] = (1<< (NVIC_ID%32) );
 }
 
-void DriverNVIC_ClrPendingINT(u32 INT_ID)
+void DriverNVIC_ClrPendingINT(u32 NVIC_ID)
 {
 	/*  		get_array_index		get required bit	*/
-	NVIC_ptr->ICPR[INT_ID/32] = (1<< (INT_ID%32) );
+	NVIC_ptr->ICPR[NVIC_ID/32] = (1<< (NVIC_ID%32) );
 }
 
-u32 DriverNVIC_GetActiveINT(u32 INT_ID)
+u32 DriverNVIC_GetActiveINT(u32 NVIC_ID)
 {
 	u32 Active_INT_ID;
-	Active_INT_ID = ( NVIC_ptr->IAPR[INT_ID/32] >> (INT_ID%32) ) & 0x01;
+	Active_INT_ID = ( NVIC_ptr->IAPR[NVIC_ID/32] >> (NVIC_ID%32) ) & 0x01;
 	return Active_INT_ID;
 }
 
@@ -111,7 +111,7 @@ ret_t DriverNVIC_SetINT_Proirity(u32 NVIC_ID, u32 Group,u32 Sub_Group)
 		u8 temp;
 		temp = 0x00;
 		temp = (Group<<4);
-		NVIC_ptr->IPR[NVIC_ID/8] = temp;
+		NVIC_ptr->IPR[NVIC_ID] = temp;
 		return ret_OK;
 	}
 	else
@@ -123,7 +123,7 @@ ret_t DriverNVIC_SetINT_Proirity(u32 NVIC_ID, u32 Group,u32 Sub_Group)
 		u8 temp;
 		temp = 0x00;
 		temp = (Group<<5 | Sub_Group<<4);
-		NVIC_ptr->IPR[NVIC_ID/8] = temp;
+		NVIC_ptr->IPR[NVIC_ID] = temp;
 		return ret_OK;
 	}
 	else
@@ -135,7 +135,7 @@ ret_t DriverNVIC_SetINT_Proirity(u32 NVIC_ID, u32 Group,u32 Sub_Group)
 		u8 temp;
 		temp = 0x00;
 		temp = (Group<<6 | Sub_Group<<4);
-		NVIC_ptr->IPR[NVIC_ID/8] = temp;
+		NVIC_ptr->IPR[NVIC_ID] = temp;
 		return ret_OK;
 	}
 	else
@@ -147,7 +147,7 @@ ret_t DriverNVIC_SetINT_Proirity(u32 NVIC_ID, u32 Group,u32 Sub_Group)
 		u8 temp;
 		temp = 0x00;
 		temp = (Group<<7 | Sub_Group<<4);
-		NVIC_ptr->IPR[NVIC_ID/8] = temp;
+		NVIC_ptr->IPR[NVIC_ID] = temp;
 		return ret_OK;
 	}
 	else
@@ -156,7 +156,7 @@ ret_t DriverNVIC_SetINT_Proirity(u32 NVIC_ID, u32 Group,u32 Sub_Group)
 #elif SW_PRIORITY == Groups0_Sub16
 	if( Sub_Group>=SUB_Group_0 && Sub_Group<=SUB_Group_15 && Group==Group_NONE)
 	{
-		NVIC_ptr->IPR[NVIC_ID/8] = Sub_Group<<4;
+		NVIC_ptr->IPR[NVIC_ID] = Sub_Group<<4;
 		return ret_OK;
 	}
 	else
@@ -187,4 +187,9 @@ ret_t DriverNVIC_Generat_SW_INT(u32 NVIC_ID)
 	else
 		return ret_Error;
 }
+/***********************************************************************************************************************************/
+/*************************************************static functions implementations**************************************************/
+/***********************************************************************************************************************************/
+
+
 

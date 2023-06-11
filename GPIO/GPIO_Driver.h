@@ -41,6 +41,8 @@
 /************************************************GPIOx_MODES************************************************************************/
 #define 		GPIO_MODE_INPUT				 0
 #define 		GPIO_MODE_OUTPUT			 1
+#define 		GPIO_MODE_ALF			 	 2
+#define 		GPIO_MODE_ANALOG			 3
 /************************************************GPIOx_TYPE************************************************************************/
 #define 		GPIO_TYPE_PUSH_PULL		  	 0
 #define 		GPIO_TYPE_OPEN_DRAIN		 1
@@ -52,10 +54,27 @@
 /************************************************GPIOx_VALUE************************************************************************/
 #define 		GPIO_VALUE_LOW		  	 	 0
 #define 		GPIO_VALUE_HIGH		   		 1
-/************************************************GPIOx_PULL UP/DOWN************************************************************************/
+/************************************************GPIOx_PULL UP/DOWN******************************************************************/
 #define 		GPIO_PUPD_NO_PUPD		  	 0
 #define 		GPIO_PUPD_UP		  	 	 1
 #define 		GPIO_PUPD_DOWN		   		 2
+/************************************************Alternative Function******************************************************************/
+#define 	    GPIO_AF0					 0
+#define 	    GPIO_AF1					 1
+#define 	    GPIO_AF2					 2
+#define 	    GPIO_AF3					 3
+#define 	    GPIO_AF4					 4
+#define 	    GPIO_AF5					 5
+#define 	    GPIO_AF6					 6
+#define 	    GPIO_AF7					 7
+#define 	    GPIO_AF8					 8
+#define 	    GPIO_AF9					 9
+#define 	    GPIO_AF10					 10
+#define 	    GPIO_AF11					 11
+#define 	    GPIO_AF12					 12
+#define 	    GPIO_AF13					 13
+#define 	    GPIO_AF14					 14
+#define 	    GPIO_AF15					 15
 /***********************************************************************************************************************************/
 /************************************************Functions Prototypes***************************************************************/
 /***********************************************************************************************************************************/
@@ -130,5 +149,16 @@ ret_t GPIO_SetPinAtomicValue(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_VALUE);
 * Constrains		: You must config the pin type to be INPUT first
 * *************************************************************************/
 ret_t GPIO_SetPullUpDownType(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_PUPD);
+
+/***************************************************************************
+* Function Name		:
+* Parameters (in)	:
+* Parameters (out)	: 							                      *
+* Return value		:
+* Description		:
+* Constrains		:
+* *************************************************************************/
+ret_t GPIO_SetAlternativeFunction(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_AF);
+
 
 #endif /* GPIO_GPIO_DRIVER_H_ */

@@ -13,7 +13,7 @@
 
 /************************************************includes************************************************************************/
 #include "../../common/STD_TYPE.h"
-#include "RCC_Driver.h"
+#include "../../MCAL/RCC/RCC_Driver.h"
 /************************************************Base Address********************************************************************/
 #define RCC_BaseAddress								  0x40023800
 /************************************************PLL-MASKING*********************************************************************/
@@ -89,7 +89,7 @@ static volatile RCC_t* const RCC_ptr = (volatile RCC_t* const ) RCC_BaseAddress;
 /***********************************************************************************************************************************/
 /***********************************************interface functions implementation**************************************************/
 /***********************************************************************************************************************************/
-ret_t DriverRcc_EnableClk(u32 clk)
+ret_t MRcc_ret_tEnableClk(u32 clk)
 {	u32 res;
 	if(clk==BIT0_MASK||clk==BIT16_MASK||clk==BIT24_MASK)
 	{
@@ -123,7 +123,7 @@ ret_t DriverRcc_EnableClk(u32 clk)
 		return ret_Error;
 }
 
-ret_t DriverRcc_DisableClk(u32 clk)
+ret_t MRcc_ret_tDisableClk(u32 clk)
 {
 	if(clk==BIT0_MASK||clk==BIT16_MASK||clk==BIT24_MASK)
 	{
@@ -135,7 +135,7 @@ ret_t DriverRcc_DisableClk(u32 clk)
 }
 
 /*
-ret_t DriverRCC_ClkReady(u32 clk)
+ret_t MRCC_ret_tClkReady(u32 clk)
 {
 	u32 res;
 	switch (clk)
@@ -149,7 +149,7 @@ ret_t DriverRCC_ClkReady(u32 clk)
 }
 */
 
-ret_t DriverRcc_SelectClk(u32 clk)
+ret_t MRcc_ret_tSelectClk(u32 clk)
 {
 	switch(clk)
 	{
@@ -161,7 +161,7 @@ ret_t DriverRcc_SelectClk(u32 clk)
 	return ret_OK;
 }
 
-ret_t DriverRCC_EnablePeripheralClk(u32 peri,u32 peri_bus)
+ret_t MRCC_ret_tEnablePeripheralClk(u32 peri,u32 peri_bus)
 {
 	if((peri % 2)==0 || peri==1)
 	{
@@ -181,7 +181,7 @@ ret_t DriverRCC_EnablePeripheralClk(u32 peri,u32 peri_bus)
 	return ret_OK;
 }
 
-ret_t DriverRCC_DisablePeripheralClk(u32 peri,u32 peri_bus)
+ret_t MRCC_ret_tDisablePeripheralClk(u32 peri,u32 peri_bus)
 {
 	if((peri % 2)==0 || peri==1)
 	{
@@ -201,7 +201,7 @@ ret_t DriverRCC_DisablePeripheralClk(u32 peri,u32 peri_bus)
 	return ret_OK;
 }
 
-ret_t DriverRCC_ConfigPLL(u32 PllSrc, u32 PllM, u32 PllN, u32 PllP)
+ret_t MRCC_ret_tConfigPLL(u32 PllSrc, u32 PllM, u32 PllN, u32 PllP )
 {
 	//mask the config bit
 	u32 temp_P = RCC_ptr->PLLCFGR;

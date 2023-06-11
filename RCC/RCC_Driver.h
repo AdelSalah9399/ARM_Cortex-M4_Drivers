@@ -60,7 +60,7 @@
 #define        peri_APB2_SDIO        						BIT11_MASK
 #define        peri_APB2_SPI1        						BIT12_MASK
 #define        peri_APB2_SPI4        						BIT13_MASK
-#define        peri_APB2_SYSCFG      						BIT8_MASK
+#define        peri_APB2_SYSCFG      						BIT14_MASK
 #define        peri_APB2_TIM9        						BIT16_MASK
 #define        peri_APB2_TIM10       						BIT17_MASK
 #define        peri_APB2_TIM11       						BIT18_MASK
@@ -86,7 +86,7 @@ enum PllP{
 * Description		: Function used to Enable SysClk[HSI-HSE-PLL]
 * Constrains		: NONE
 * *************************************************************************/
-ret_t DriverRcc_EnableClk(u32 clk);
+ret_t MRcc_ret_tEnableClk(u32 clk);
 
 /***************************************************************************
 * Function Name		: DriverRcc_DisableClk
@@ -96,7 +96,7 @@ ret_t DriverRcc_EnableClk(u32 clk);
 * Description		: Function used to Disable SysClk[HSI-HSE-PLL]
 * Constrains		: NONE
 * *************************************************************************/
-ret_t DriverRcc_DisableClk(u32 clk);
+ret_t MRcc_ret_tDisableClk(u32 clk);
 
 /***************************************************************************
 * Function Name		: DriverRCC_ClkReady
@@ -113,7 +113,7 @@ ret_t DriverRcc_DisableClk(u32 clk);
 * 	INSIDE ENABLE FUNCTION
 * 	---------------------------------------------------------------------------
 * *************************************************************************/
-ret_t DriverRCC_ClkReady(u32 clk);
+ret_t MRCC_ret_tClkReady(u32 clk);
 
 /***************************************************************************
 * Function Name		: DriverRcc_SelectClk
@@ -123,7 +123,7 @@ ret_t DriverRCC_ClkReady(u32 clk);
 * Description		: Function used to Select SysClk[HSI-HSE-PLL]
 * Constrains		: -SysClk must be Enable and Ready
 * *************************************************************************/
-ret_t DriverRcc_SelectClk(u32 clk);
+ret_t MRcc_ret_tSelectClk(u32 clk);
 
 /***************************************************************************
 * Function Name		: DriverRCC_EnablePeripheralClk
@@ -133,7 +133,7 @@ ret_t DriverRcc_SelectClk(u32 clk);
 * Description		: Function used to Enable PeripheralClk
 * Constrains		: NONE
 * *************************************************************************/
-ret_t DriverRCC_EnablePeripheralClk(u32 peri,u32 peri_bus);
+ret_t MRCC_ret_tEnablePeripheralClk(u32 peri,u32 peri_bus);
 
 /***************************************************************************
 * Function Name		: DriverRCC_DisablePeripheralClk
@@ -143,7 +143,7 @@ ret_t DriverRCC_EnablePeripheralClk(u32 peri,u32 peri_bus);
 * Description		: Function used to Disable PeripheralClk
 * Constrains		: NONE
 * *************************************************************************/
-ret_t DriverRCC_DisablePeripheralClk(u32 peri,u32 peri_bus);
+ret_t MRCC_ret_tDisablePeripheralClk(u32 peri,u32 peri_bus);
 
 /***************************************************************************
 * Function Name		: DriverRCC_ConfigPLL
@@ -158,6 +158,6 @@ ret_t DriverRCC_DisablePeripheralClk(u32 peri,u32 peri_bus);
 * 			  		  -Disable the PLL
 * 	^^WARRNING^^ USE suitable PRESCALLER to avoid >>> sleep mode <<< [2 & 4]
  * *************************************************************************/
-ret_t DriverRCC_ConfigPLL(u32 PllSrc, u32 PllM, u32 PllN, u32 PllP );
+ret_t MRCC_ret_tConfigPLL(u32 PllSrc, u32 PllM, u32 PllN, u32 PllP );
 
 #endif /* RCC_RCC_DRIVER_H_ */

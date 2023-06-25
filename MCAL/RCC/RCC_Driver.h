@@ -81,7 +81,7 @@ enum PllP{
 /***************************************************************************
 * Function Name		: DriverRcc_EnableClk
 * Parameters (in)	: options from [clk_x]
-* Parameters (out)	: NONE																						                      *
+* Parameters (out)	: NONE
 * Return value		: enum ret_t
 * Description		: Function used to Enable SysClk[HSI-HSE-PLL]
 * Constrains		: NONE
@@ -91,7 +91,7 @@ ret_t MRcc_ret_tEnableClk(u32 clk);
 /***************************************************************************
 * Function Name		: DriverRcc_DisableClk
 * Parameters (in)	: options from [clk_x]
-* Parameters (out)	: NONE																						                      *
+* Parameters (out)	: NONE
 * Return value		: enum ret_t
 * Description		: Function used to Disable SysClk[HSI-HSE-PLL]
 * Constrains		: NONE
@@ -101,7 +101,7 @@ ret_t MRcc_ret_tDisableClk(u32 clk);
 /***************************************************************************
 * Function Name		: DriverRCC_ClkReady
 * Parameters (in)	: options from [clk_x]
-* Parameters (out)	: NONE																						                      *
+* Parameters (out)	: NONE
 * Return value		: enum ret_t
 * Description		: Function used to check if the clock is ready or not
 * Constrains		: NONE
@@ -118,7 +118,7 @@ ret_t MRCC_ret_tClkReady(u32 clk);
 /***************************************************************************
 * Function Name		: DriverRcc_SelectClk
 * Parameters (in)	: options from [clk_x]
-* Parameters (out)	: NONE																						                      *
+* Parameters (out)	: NONE
 * Return value		: enum ret_t
 * Description		: Function used to Select SysClk[HSI-HSE-PLL]
 * Constrains		: -SysClk must be Enable and Ready
@@ -128,7 +128,7 @@ ret_t MRcc_ret_tSelectClk(u32 clk);
 /***************************************************************************
 * Function Name		: DriverRCC_EnablePeripheralClk
 * Parameters (in)	: options from [peri_x]
-* Parameters (out)	: NONE																						                      *
+* Parameters (out)	: NONE
 * Return value		: enum ret_t
 * Description		: Function used to Enable PeripheralClk
 * Constrains		: NONE
@@ -138,7 +138,7 @@ ret_t MRCC_ret_tEnablePeripheralClk(u32 peri,u32 peri_bus);
 /***************************************************************************
 * Function Name		: DriverRCC_DisablePeripheralClk
 * Parameters (in)	: options from [peri_x]
-* Parameters (out)	: NONE																						                      *
+* Parameters (out)	: NONE
 * Return value		: enum ret_t
 * Description		: Function used to Disable PeripheralClk
 * Constrains		: NONE
@@ -151,7 +151,7 @@ ret_t MRCC_ret_tDisablePeripheralClk(u32 peri,u32 peri_bus);
 *		    		   PLLM Range -> PLLM_2 to PLLM_63
 * 				 	   PLLN Range -> PLLN_192 to PLLN_432
 * 					   PLLP Range -> PLLP_2,4,6,8
-* Parameters (out)	: NONE																						                      *
+* Parameters (out)	: NONE
 * Return value		: enum ret_t
 * Description		: Function used to Config the PLLClk
 * Constrains		: -you must Switch to another SysClk(if PLL is the current SysClk)

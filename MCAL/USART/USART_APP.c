@@ -196,7 +196,7 @@ ret_t MUSART_ret_tSendByteSync(u32 USART,u8 Data_Byte,u32 TimeOut)
 u8 MUSART_u8ReceiveByteSync(u32 USART,u32 TimeOut)
 {
 	/*wait until receiving is complete*/
-	if(USART_WaitOnFlagTimeout(USART,RXNE,TimeOut)==USART_OK);
+	if(USART_WaitOnFlagTimeout(USART,RXNE,TimeOut)==USART_OK)
 	{
 		if     (USART==USART_1) return ((USART1->DR) & 0xFF);
 		else if(USART==USART_2) return ((USART2->DR) & 0xFF);
@@ -204,6 +204,7 @@ u8 MUSART_u8ReceiveByteSync(u32 USART,u32 TimeOut)
 		else 					{/*return nothing*/};
 	}
 }
+
 
 
 ret_t MUSART_ret_tSendStringSync(u32 USART,u8 *Send_Strg,u32 TimeOut)

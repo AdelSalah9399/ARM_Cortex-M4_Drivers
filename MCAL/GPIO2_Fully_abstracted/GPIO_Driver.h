@@ -1,6 +1,6 @@
 /*********************************************************************************************************************************
 * AUTHOR           	  				VERSION									DATE 						DESCRIPTION 	   	 	 *
-* Adel Salah El-Din	  				1.0.0 								26 May,2023					- Initial Creation			 *
+* Adel Salah El-Din	  				1.0.0 								13 June,2023					- Initial Creation		 *
 **********************************************************************************************************************************/
 /**********************************************************************************************************************************
 * ! Title      	: GPIO Driver                                                        						                      *
@@ -13,7 +13,6 @@
 
 #ifndef GPIO_GPIO_DRIVER_H_
 #define GPIO_GPIO_DRIVER_H_
-
 /************************************************includes**************************************************************************/
 #include "../../common/STD_TYPE.h"
 #include "../../common/Util.h"
@@ -75,44 +74,37 @@
 #define 	    GPIO_AF13					 13
 #define 	    GPIO_AF14					 14
 #define 	    GPIO_AF15					 15
+
+/***********************************************************************************************************************************/
+/************************************************INFO Variables*********************************************************************/
+/***********************************************************************************************************************************/
+typedef struct{
+	u8 _Port;
+	u8 _Pin;
+	u8 _Mode;
+	u8 _Type;
+	u8 _PUPD;
+	u8 _Speed;
+	u8 _AF;
+}GPIO_PinCFG_t;
+
 /***********************************************************************************************************************************/
 /************************************************Functions Prototypes***************************************************************/
 /***********************************************************************************************************************************/
 
-
 /***************************************************************************
-* Function Name		: GPIO_SetPinMode
-* Parameters (in)	: options from [GPIO_PORTx - GPIO_PINx - GPIO_MODE_X]
+* Function Name		: MGPIO_Init
+* Parameters (in)	: address of struct GPIO_PinCFG_t
 * Parameters (out)	: NONE																						                      *
-* Return value		: enum ret_t
-* Description		: Function used to Set GPIO pin Mode [Input/Output]
+* Return value		: void
+* Description		: Function used to Init GPIO Pin
 * Constrains		: NONE
 * *************************************************************************/
-ret_t GPIO_SetPinMode(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_MODE);
-
-/***************************************************************************
-* Function Name		: GPIO_SetPinType
-* Parameters (in)	: options from [GPIO_PORTx - GPIO_PINx - GPIO_TYPE_X]
-* Parameters (out)	: NONE																						                      *
-* Return value		: enum ret_t
-* Description		: Function used to Set GPIO pin Type [push-pull/open-drain]
-* Constrains		: NONE
-* *************************************************************************/
-ret_t GPIO_SetPinType(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_TYPE);
-
-/***************************************************************************
-* Function Name		: GPIO_SetPinSpeed
-* Parameters (in)	: options from [GPIO_PORTx - GPIO_PINx - GPIO_SPEED_X]
-* Parameters (out)	: NONE																						                      *
-* Return value		: enum ret_t
-* Description		: Function used to Set GPIO pin Type [low/medium/high/very_high]
-* Constrains		: NONE
-* *************************************************************************/
-ret_t GPIO_SetPinSpeed(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_SPEED);
+void MGPIO_Init(GPIO_PinCFG_t * PinCFG);
 
 /***************************************************************************
 * Function Name		: GPIO_SetPinValue
-* Parameters (in)	: options from [GPIO_PORTx - GPIO_PINx - GPIO_Value_X]
+* Parameters (in)	: options from struct GPIO_PinCFG_t element [x._port - x._port] and value [ GPIO_Value_X]
 * Parameters (out)	: NONE																						                      *
 * Return value		: enum ret_t
 * Description		: Function used to Set GPIO pin Type [Low/High]
@@ -122,7 +114,7 @@ ret_t GPIO_SetPinValue(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_VALUE);
 
 /***************************************************************************
 * Function Name		: GPIO_GetPinValue
-* Parameters (in)	: options from [GPIO_PORTx - GPIO_PINx - address of u8 variable]
+* Parameters (in)	: options from struct GPIO_PinCFG_t element [x._port - x._port] and value [ GPIO_Value_X]
 * Parameters (out)	: result value of GPIO PIN state																						                      *
 * Return value		: enum ret_t
 * Description		: Function used to Get GPIO pin Value [Low/High]
@@ -132,33 +124,13 @@ ret_t GPIO_GetPinValue(u8 GPIO_PORT,u8 GPIO_PIN, u8* GPIO_GetVALUE);
 
 /***************************************************************************
 * Function Name		: GPIO_SetPinAtomicValue
-* Parameters (in)	: options from [GPIO_PORTx - GPIO_PINx - GPIO_Value_X]
+* Parameters (in)	: options from struct GPIO_PinCFG_t element [x._port - x._port] and value [ GPIO_Value_X]
 * Parameters (out)	: NONE																						                      *
 * Return value		: enum ret_t
 * Description		: Function used to Set GPIO pin Type [Low/High] in one instruction
 * Constrains		: NONE
 * *************************************************************************/
 ret_t GPIO_SetPinAtomicValue(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_VALUE);
-
-/***************************************************************************
-* Function Name		: GPIO_SetPullUpDownType
-* Parameters (in)	: options from [GPIO_PORTx - GPIO_PINx - GPIO_PUPD_X]
-* Parameters (out)	: NONE																						                      *
-* Return value		: enum ret_t
-* Description		: Function used to Set GPIO pin Type [PULL UP/PULL DOWN/NO_PUPD]
-* Constrains		: You must config the pin type to be INPUT first
-* *************************************************************************/
-ret_t GPIO_SetPullUpDownType(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_PUPD);
-
-/***************************************************************************
-* Function Name		:
-* Parameters (in)	:
-* Parameters (out)	: 							                      *
-* Return value		:
-* Description		:
-* Constrains		:
-* *************************************************************************/
-ret_t GPIO_SetAlternativeFunction(u8 GPIO_PORT,u8 GPIO_PIN, u8 GPIO_AF);
 
 
 #endif /* GPIO_GPIO_DRIVER_H_ */

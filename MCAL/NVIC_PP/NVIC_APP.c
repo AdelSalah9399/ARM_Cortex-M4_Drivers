@@ -12,8 +12,7 @@
 **********************************************************************************************************************************/
 
 /************************************************includes***************************************************************************/
-#include "../../common/STD_TYPE.h"
-#include "../../MCAL/NVIC_PP/NVIC_Driver.h"
+#include "NVIC_Driver.h"
 /********************************************SW_Priority_BaseAddress****************************************************************/
 #define NVIC_SCB_AIRCR_BaseAddress					  0xE000ED0C
 /************************************************NVIC_Base_Address******************************************************************/
@@ -70,7 +69,6 @@ void DriverNVIC_GroupsPriorityConfig(void)
 	/*config the grouping priority directly*/
 	SCB_AIRCR=SW_PRIORITY;
 }
-
 
 void DriverNVIC_EnableINT(u32 NVIC_ID)
 {

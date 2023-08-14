@@ -10,8 +10,7 @@
 * ! Target 	  	: STM32F401 (M-4) Micro-Controller                                         							              *
 * ! Layer 	  	: MCAL -Driver Layer-                  						                            			  		      *
 **********************************************************************************************************************************/
-#include "../../common/STD_TYPE.h"
-#include "../../common/Util.h"
+
 #include "SYSTICK_Driver.h"
 
 #define STK_BASE_ADDRESS   0xE000E010

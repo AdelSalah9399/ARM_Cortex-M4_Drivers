@@ -12,8 +12,7 @@
 **********************************************************************************************************************************/
 
 /**************************************************** Library Inclusions *********************************************************/
-#include "../../common/STD_TYPE.h"
-#include "../../common/Util.h"
+
 /************************************************** Lower Layer Inclusions *******************************************************/
 
 /************************************************** Self Layer Inclusions ********************************************************/
@@ -22,11 +21,10 @@
 #include "../../MCAL/EXTIx/EXTIx_Driver.h"
 /************************************************** Global Variables **************************************************************/
 
-static void (*EXTIx_CallBack[16])(void)={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-										 NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+static void (*EXTIx_CallBack[16])(void);
 /************************************************** Base Addresses **************************************************************/
 #define EXTI_BASE_ADDRESS		(0x40013C00)
-#define SYSCFG_BASE_ADDRESS		(0x40013808)
+#define SYSCFG_BASE_ADDRESS		(0x40013800)
 /************************************************** SYSCFG MASK *****************************************************************/
 #define SYSCFG_MASK				0x1111
 /************************************************** Registers *******************************************************************/
@@ -45,8 +43,10 @@ typedef struct {
 }EXTI_t;
 
 typedef struct{
-
+	u32 MEMRMP;
+	u32 PMC;
 	u32 EXTICR[4];
+	u32 CMPCR;
 }SYSCFG_t;
 
 
@@ -280,13 +280,76 @@ void EXTI4_IRQHandler(void)
 }
 
 
-/*
- * remain .......
- *
- * IRQ 5->15
- *
- * */
+void EXTI9_5_IRQHandler(void)
+{
+	if(EXTIx_CallBack[5]!=NULL)
+	{
+		EXTIx_CallBack[5]();
+		EXTI_ret_tClearPending(EXTI_Line_5);
+	}
+	if(EXTIx_CallBack[6]!=NULL)
+	{
+		EXTIx_CallBack[6]();
+		EXTI_ret_tClearPending(EXTI_Line_6);
+	}
+	else if(EXTIx_CallBack[7]!=NULL)
+	{
+		EXTIx_CallBack[7]();
+		EXTI_ret_tClearPending(EXTI_Line_7);
+	}
+	else if(EXTIx_CallBack[8]!=NULL)
+	{
+		EXTIx_CallBack[8]();
+		EXTI_ret_tClearPending(EXTI_Line_7);
+	}
+	else if(EXTIx_CallBack[9]!=NULL)
+	{
+		EXTIx_CallBack[9]();
+		EXTI_ret_tClearPending(EXTI_Line_7);
+	}
+	else
+	{
+		/*do nothing*/
+	}
 
+}
+void EXTI15_10_IRQHandler(void)
+{
+	if(EXTIx_CallBack[10]!=NULL)
+	{
+		EXTIx_CallBack[10]();
+		EXTI_ret_tClearPending(EXTI_Line_10);
+	}
+	else if(EXTIx_CallBack[11]!=NULL)
+	{
+		EXTIx_CallBack[11]();
+		EXTI_ret_tClearPending(EXTI_Line_11);
+	}
+	else if(EXTIx_CallBack[12]!=NULL)
+	{
+		EXTIx_CallBack[12]();
+		EXTI_ret_tClearPending(EXTI_Line_12);
+	}
+	else if(EXTIx_CallBack[13]!=NULL)
+	{
+		EXTIx_CallBack[13]();
+		EXTI_ret_tClearPending(EXTI_Line_13);
+	}
+	else if(EXTIx_CallBack[14]!=NULL)
+	{
+		EXTIx_CallBack[14]();
+		EXTI_ret_tClearPending(EXTI_Line_14);
+	}
+	else if(EXTIx_CallBack[15]!=NULL)
+	{
+		EXTIx_CallBack[15]();
+		EXTI_ret_tClearPending(EXTI_Line_15);
+	}
+	else
+	{
+		/*do nothing*/
+	}
+}
 /***********************************************************************************************************************************/
 /*************************************************static functions implementations**************************************************/
 /***********************************************************************************************************************************/

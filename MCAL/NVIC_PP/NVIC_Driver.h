@@ -18,6 +18,7 @@
 #include "../../common/STD_TYPE.h"
 #include "../../common/Util.h"
 /************************************************SW_Priority_Groubs*****************************************************************/
+											/*VECT_KRY+GROUB_OPTIN*/
 #define Groups16_Sub0  								0X05FA0000
 #define Groups8_Sub2   								0X05FA0400
 #define Groups4_Sub4   								0X05FA0500
